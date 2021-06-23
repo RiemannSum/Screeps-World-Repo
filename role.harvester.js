@@ -4,7 +4,6 @@ var harvester = {
 		// creep.room.createConstructionSite(creep.pos.x, creep.pos.y, 'road');
 
 		if(creep.store.getFreeCapacity() > 0){
-			creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES).id;
 			const source = Game.getObjectById(creep.memory.sourceId);
 			if(creep.harvest(source) == ERR_NOT_IN_RANGE){
 				creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
