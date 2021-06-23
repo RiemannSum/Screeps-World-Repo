@@ -1,12 +1,22 @@
 
-console.log("asdasd")
+let harvester = require('role.harvester')
 
+//Find all sources in the room 
 let e = _.filter(Game.spawns['Spawn1'].room.find(FIND_SOURCES));
 // console.log(e.length)
 
-let findLocations = obj => {
-	let area = Game.rooms.sim.lookAtArea(obj.pos.x-1, obj.pos.y-1, obj.pos.x+1, obj.pos.y+1);
-	console.log(area.length)
+let findLocations = sourceArray => {
+	let arr = [];
+	//Create an array for each source
+	for(let i = 0; i < e.length; i++){
+		arr.push([]);
+	}
+	//Set value to numberof open slots per source
+	for(let i = 0; i < arr.length; i++){
+		arr[i] = terrain(e[i]);
+	}
+
+	return arr;
 }
 
 let terrain = obj => {
@@ -18,12 +28,14 @@ let terrain = obj => {
 	for(let i = 0; i < 3; i++){
 		for(let j = 0; j < 3; j++){
 			if(range.get(obj.pos.x - 1 + i % 3, obj.pos.y - 1 + j % 3) == 0){
-				// openSlots++;
+				//Count number of open spots around the source
+				openSlots++;
 				//You wont remember how this works anyways
-				Game.rooms.sim.createConstructionSite(obj.pos.x - 1 + i % 3, obj.pos.y - 1 + j % 3, STRUCTURE_ROAD)
+				// Game.rooms.sim.createConstructionSite(obj.pos.x - 1 + i % 3, obj.pos.y - 1 + j % 3, STRUCTURE_ROAD)
 			}
 		}
 	}
+	return openSlots;
 	
 }
 
@@ -36,6 +48,20 @@ module.exports.loop = function(){
 	// console.log(t.get(e[0].pos.x+1, e[0].pos.y+1))
 	// console.log(t.get(32,13))
 
-	terrain(e[3]);
-	// console.log(room.name)
+	// terrain(e[3]);
+	let sources = findLocations(e);
+
+	let state = 0;
+
+	switch(state){
+		case 0:
+
+			break
+		case 1:
+
+			break
+
+		default:
+			break
+	}
 }
