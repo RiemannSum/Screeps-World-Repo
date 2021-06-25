@@ -97,7 +97,7 @@ module.exports.loop = function(){
 
 		default:
 			//idgaf what you do
-			console.log("how the fuck did you end up here") //idk
+			console.log("how the fuck did you end up here") //Commit this
 			break
 	}
 }
