@@ -4,4 +4,4 @@ var roles = {
 
 Creep.prototype.runRole = () => roles[this.memory.role].run(this);
 
-Creep.prototype.suicide = () = creep.say("RIP");
+Creep.prototype.suicide = () = creep.say("RIP"); //not sure if thisll work
