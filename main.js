@@ -35,8 +35,24 @@ let terrain = obj => {
 			}
 		}
 	}
+	// console.log("Open Slots: " + openSlots);
 	return openSlots;
 	
+}
+
+let getLocation = energy => {
+	// console.log(energy.Id)
+	let range = Game.rooms.sim.getTerrain();
+	for(let i = 0; i < 3; i++){
+		for(let j = 0; j < 3; j++){
+			if(range.get(energy.pos.x - 1 + i % 3, energy.pos.y - 1 + j % 3) == 0){
+				// console.log(energy.pos.x + i + " " + energy.pos.y + j);
+				let openX = energy.pos.x - i + 1;
+				let openY = energy.pos.y - j + 1;
+				console.log(openX + " " + openY);
+			}
+		}
+	}
 }
 
 module.exports.loop = function(){
@@ -71,12 +87,15 @@ module.exports.loop = function(){
 
 	// terrain(e[3]);
 	let sources = findLocations(e);
-	// console.log(sources.length)
-	// console.log(e[0].pos.y)
+	getLocation(e[2]);
 
-	Game.spawns['Spawn1'].spawnCreep([WORK, MOVE], 
-		'mover' + Game.time, 
-		{memory: {role: 'mover', posX: 3, posY: 9}})
+	// console.log(e[0].pos.y)
+	// console.log(sources.length)
+	// console.log(e[3].pos.x + " " + e[3].pos.y)
+
+	// Game.spawns['Spawn1'].spawnCreep([WORK, MOVE], 
+	// 	'mover' + Game.time, 
+	// 	{memory: {role: 'mover', posX: 3, posY: 9}})
 
 	let harvesterArr = [];
 	for(let i = 0; i < sources.length; i++){
@@ -91,6 +110,7 @@ module.exports.loop = function(){
 		case 0:
 			//we need to make harvesters
 			// console.log(harvesterArr.length)
+			//Select a source to comit to harvester memory
 			let targetSource = 0;
 
 
@@ -98,9 +118,10 @@ module.exports.loop = function(){
 				for(let j = 0; j < harvesterArr[i].length; j++){
 					if(harvesterArr[i][j] == null){
 						// console.log(i + " " + j)
-						// harvesterArr[i][j] = Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 
-						// 	'harvester' + Game.time, 
-						// 	{memory: {role: 'harvester', sourceId: e[targetSource].id}});
+						harvesterArr[i][j] = Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 
+							'harvester' + Game.time, 
+							{memory: {role: 'harvester', sourceId: e[targetSource].id}});
+						// console.log(targetSource);
 					}
 					else{
 						targetSource++;
