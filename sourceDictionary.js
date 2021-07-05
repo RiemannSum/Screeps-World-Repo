@@ -19,8 +19,7 @@ let c = {
 // 	}
 // }
 
-let harvesterArray = ['h1', 'h2', 'h3'];
-
+//make an array of harvesters
 let hArr = [
 	{
 		name: 'h1',
@@ -36,6 +35,7 @@ let hArr = [
 
 // p(hArr[0].sourceId)
 
+//find which ones do not have a sourceId assigned
 let getIdle = arr => {
 	for(let i = 0; i < arr.length; i++){
 		// p(arr[i].sourceId)
@@ -48,6 +48,7 @@ let getIdle = arr => {
 
 getIdle(hArr);
 
+//Dictionary of room sources
 let sources = {
 	nodes: {
 		nodeOne: {

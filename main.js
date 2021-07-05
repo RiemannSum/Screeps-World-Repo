@@ -1,4 +1,5 @@
 require('prototype.creep');
+let sourceDict = require('sources')
 let harvester = require('role.harvester')
 
 //Find all sources in the room 
@@ -49,7 +50,7 @@ let getLocation = energy => {
 				// console.log(energy.pos.x + i + " " + energy.pos.y + j);
 				let openX = energy.pos.x - i + 1;
 				let openY = energy.pos.y - j + 1;
-				console.log(openX + " " + openY);
+				// console.log(openX + " " + openY);
 			}
 		}
 	}
