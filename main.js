@@ -1,4 +1,4 @@
-
+require('prototype.creep');
 let harvester = require('role.harvester')
 
 //Find all sources in the room 
@@ -40,13 +40,25 @@ let terrain = obj => {
 }
 
 module.exports.loop = function(){
-	// console.log(e[1].pos.x + " " + e[1].pos.y)
-	for(let name in Game.creeps){
-		let creep = Game.creeps[name];
-		if(creep.memory.role == 'harvester'){
-			harvester.run(creep);
+
+	//Erase unused creep memory
+	for(let name in Memory.creeps){
+		if(Game.creeps[name] == undefined){
+			delete Memory.creeps[name];
 		}
 	}
+
+	for(let name in Game.creeps){
+		Game.creeps[name].runRole();
+	}
+
+	// console.log(e[1].pos.x + " " + e[1].pos.y)
+	// for(let name in Game.creeps){
+	// 	let creep = Game.creeps[name];
+	// 	if(creep.memory.role == 'harvester'){
+	// 		harvester.run(creep);
+	// 	}
+	// }
 
 	// console.log(e[0].id)
 	// console.log(e[0].pos.x + " " + e[0].pos.y)
@@ -60,6 +72,11 @@ module.exports.loop = function(){
 	// terrain(e[3]);
 	let sources = findLocations(e);
 	// console.log(sources.length)
+	// console.log(e[0].pos.y)
+
+	Game.spawns['Spawn1'].spawnCreep([WORK, MOVE], 
+		'mover' + Game.time, 
+		{memory: {role: 'mover', posX: 3, posY: 9}})
 
 	let harvesterArr = [];
 	for(let i = 0; i < sources.length; i++){
@@ -81,9 +98,9 @@ module.exports.loop = function(){
 				for(let j = 0; j < harvesterArr[i].length; j++){
 					if(harvesterArr[i][j] == null){
 						// console.log(i + " " + j)
-						harvesterArr[i][j] = Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 
-							'harvester' + Game.time, 
-							{memory: {role: 'harvester', sourceId: e[targetSource].id}});
+						// harvesterArr[i][j] = Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 
+						// 	'harvester' + Game.time, 
+						// 	{memory: {role: 'harvester', sourceId: e[targetSource].id}});
 					}
 					else{
 						targetSource++;
