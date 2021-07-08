@@ -50,7 +50,7 @@ let sources = {
 						pos: {x: null, y: null},
 						user: null,
 						sourceId: null
-					},
+					}
 			}
 		}
 	}
