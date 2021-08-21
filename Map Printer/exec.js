@@ -1,0 +1,1 @@
+let p = data => console.log(data);
